@@ -1,4 +1,10 @@
-const Form = ({ setInputField, todos, setTodos, inputFiled, setStatus }) => {
+import { useContext } from "react";
+import { TodoContext } from "./Provider";
+
+const Form = () => {
+  const { setInputField, todos, setTodos, inputFiled, setStatus } =
+    useContext(TodoContext);
+
   const handleInput = (e) => {
     setInputField(e.target.value);
   };

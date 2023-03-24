@@ -1,4 +1,9 @@
-const Todo = ({ value, todos, setTodos, className }) => {
+import { useContext } from "react";
+import { TodoContext } from "./Provider";
+
+const Todo = ({ value }) => {
+  const { todos, setTodos } = useContext(TodoContext);
+
   const handleDelete = () => {
     const todoId = todos.filter((item) => item.id !== value.id);
 
@@ -17,7 +22,7 @@ const Todo = ({ value, todos, setTodos, className }) => {
   };
 
   return (
-    <div className={`todo ${className}`}>
+    <div className={`todo `}>
       <li className={`todo-item ${value.completed && "completed"} `}>
         {value.text}
       </li>

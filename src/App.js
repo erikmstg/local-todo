@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import { TodoContext } from "./components/Provider";
 
 function App() {
   const [inputFiled, setInputField] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodo, setFilteredTodo] = useState([]);
+
+  const TodoProvider = TodoContext.Provider;
 
   useEffect(() => {
     getLocal();
@@ -49,17 +52,29 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <h1>Todo's</h1>
-      </header>
-      <Form
-        inputFiled={inputFiled}
-        setInputField={setInputField}
-        todos={todos}
-        setTodos={setTodos}
-        setStatus={setStatus}
-      />
-      <TodoList setTodos={setTodos} todos={todos} filteredTodo={filteredTodo} />
+      <TodoProvider
+        value={{
+          todos,
+          setTodos,
+          status,
+          inputFiled,
+          setInputField,
+          filteredTodo,
+          setStatus,
+        }}
+      >
+        <header>
+          <h1>Todo's</h1>
+        </header>
+        <Form
+          inputFiled={inputFiled}
+          setInputField={setInputField}
+          todos={todos}
+          setTodos={setTodos}
+          setStatus={setStatus}
+        />
+        <TodoList />
+      </TodoProvider>
     </div>
   );
 }
